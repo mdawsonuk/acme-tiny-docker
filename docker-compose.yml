@@ -17,7 +17,7 @@ services:
       - nginx-proxy
     environment:
       # Host for the jwilder/nginx-proxy
-      - VIRTUAL_HOST=example.com
+      - VIRTUAL_HOST=example.com,www.example.com,status.example.com
       # Common Name
       - COMMON_NAME=example.com
       # Alternative names

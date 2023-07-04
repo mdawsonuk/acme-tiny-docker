@@ -109,7 +109,7 @@ function renew() {
     if [ "$?" -ne "0" ]; then
         log "Renewal failed...\n"
 
-        log "\nTidying up... "
+        log "Tidying up... "
         rm /data/config/domain.csr 2> /dev/null
         rm /data/config/certificate.crt 2> /dev/null
         rm /data/config/private.key 2> /dev/null
