@@ -1,0 +1,33 @@
+version: '3'
+
+services:
+  nginx-proxy:
+    container_name: cert-proxy
+    image: jwilder/nginx-proxy:alpine
+    ports:
+      - "80:80/tcp"
+    volumes:
+      - /var/run/docker.sock:/tmp/docker.sock:ro
+    restart: always
+
+  example-cert:
+    container_name: example-cert
+    image: mdawsonuk/acme-tiny-docker:latest
+    depends_on:
+      - nginx-proxy
+    environment:
+      # Host for the jwilder/nginx-proxy
+      - VIRTUAL_HOST=example.com
+      # Common Name
+      - COMMON_NAME=example.com
+      # Alternative names
+      - ALT_NAMES=www.example.com;status.example.com
+      # Key generation
+      - KEY_TYPE=ecdsa
+      - KEY_SIZE=384
+    volumes:
+      - ./config/example.com:/data
+      # Example usage of post-hook.sh is to deploy to a server using a push approach to certificate management
+      # - ./example-cert/deploy.sh:/data/post-hook.sh:ro
+      # - ./example-cert/id_rsa:/data/id_rsa:ro
+    restart: always
