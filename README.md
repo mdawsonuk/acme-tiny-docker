@@ -35,3 +35,9 @@ N.B: Alt names must be separated by a `;`. If used, jwilder/nginx-proxy must sep
 `DISABLE_CHECK`: Should acme-tiny disable the Let's Encrypt check of the domain. Valid values are `0` or `1`. Defaults to `0`.
 
 `DEBUG`: Increased verbosity in Docker log output. Valid values are `0` or `1`. Defaults to `0`.
+
+### Volumes
+
+To persist the certificate across Docker container runs, mount `/data` to a volume.
+
+If you wish to execute some code automatically after the certificate has been successfully created, mount a bash script to `/data/post-hook.sh`. This could be used to upload via a HTTPS PUT request, or SSH.
