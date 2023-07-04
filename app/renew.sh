@@ -76,12 +76,12 @@ function renew() {
         subjectAltName=$(printf ", %s" "${AltNames[@]}")
         subjectAltName=${subjectAltName:2}
 
+        openssl req -new -sha256 -key /data/private.key -subj "/" -addext "subjectAltName = $subjectAltName" > /data/config/domain.csr
+        printf "Done\n"
+
         if [ ! -z "${DEBUG}" ]; then
             log "subjectAltName = $subjectAltName\n"
         fi
-
-        openssl req -new -sha256 -key /data/private.key -subj "/" -addext "subjectAltName = $subjectAltName" > /data/config/domain.csr
-        printf "Done\n"
     fi
 
     umask 0022

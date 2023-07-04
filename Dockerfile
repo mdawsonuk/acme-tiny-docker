@@ -1,6 +1,6 @@
 FROM nginx
 
-RUN apt-get update -qq && apt-get install -qq python3 wget curl openssl openssh-client cron -y
+RUN apt-get update -qq && apt-get install -qq python3-minimal openssl openssh-client cron wget -y
 
 RUN wget https://raw.githubusercontent.com/diafygi/acme-tiny/master/acme_tiny.py -q -O /acme_tiny.py
 
