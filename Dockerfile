@@ -8,7 +8,8 @@ COPY ./app/ /app/
 RUN apt-get update -qq && \
     apt-get install -qq python3-minimal openssl openssh-client cron -y && \
     apt-get clean && \
-    rm -rf /var/lib/apt/lists/*
+    rm -rf /var/lib/apt/lists/* && \
+    chmod +x /app/entrypoint.sh && chmod +x /app/renew.sh
 
 # 0 * * * * for hourly
 RUN (crontab -l ; echo "0 * * * * /app/renew.sh > /proc/1/fd/1 2>/proc/1/fd/2") | crontab
